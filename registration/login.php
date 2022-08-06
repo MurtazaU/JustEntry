@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('../assets/modules/database-connection.php');
 if(isset($_POST['user_submit'])){
     $user_email = $_REQUEST['user_email'];
@@ -13,7 +14,9 @@ if(isset($_POST['user_submit'])){
     $count = $sql->rowCount();
 
     if($count > 0){
+      $_SESSION['user_email'] = $user_email;
       header('location: ../index.php');
+
 
     } else{
       echo "<script>alert('Invalid Credentials')</script>";
