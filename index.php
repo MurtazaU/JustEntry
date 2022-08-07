@@ -52,7 +52,7 @@ include('./assets/modules/database-connection.php');
             <div class="container">
                 <div class="row">
                     <div class="text-center mb-5">
-                        <h1 class="display-4">Join A Group</h1>
+                        <h1 class="display-4">View Groups</h1>
                     </div>
                 </div>
                 <div class="row">
@@ -84,16 +84,38 @@ include('./assets/modules/database-connection.php');
                                     </div>
                                     <div class="card-footer">
                                         <div class="media">
-                                            <script>
-                                            function changeButton() {
-                                                document.getElementById('group_id').value = "Leave Group"
-                                            }
-                                            </script>
-                                            <button onclick="changeButton()" type="button" name="join_group"
-                                                class="btn btn-primary mb-3 form-control" id="group_id">
+                                            <?php
+                                            $query = $con -> prepare("select * from users where $row->groupname = 1 && useremail = ?");
+                                            // $query->bindParam(1, $group_name);
+                                            $query->bindParam(1, $_SESSION['user_email']);
+                                            $query -> execute();
+                                            $count = $query->rowCount();
+                                            if($count <= 0){
+                                              ?>
+                                            <button type="button" name="join_group"
+                                                class="btn btn-primary mb-3 mx-1 form-control col-12" id="group_id">
                                                 <a href='./assets/modules/joingroup.php?name=<?php echo $row->groupname; ?>'
                                                     class="text-white">Join
                                                     Group</a> </button>
+                                            <?php
+                                            } else{
+                                              ?>
+                                            <button type="submit" name="leave_group"
+                                                class="btn btn-red mb-3 mx-1 form-control col-10" id="group_id">
+                                                <a href='./assets/modules/leavegroup.php?name=<?php echo $row->groupname; ?>'
+                                                    class="text-white">Leave Group</a> </button>
+
+                                            <button type="button" name="join_group"
+                                                class="btn upload-btn mb-3 mx-1 form-control col-2" id="group_id">
+                                                <a href='' class="text-white"> <span
+                                                        class="mx-1 fa fa-solid fa-upload mr-3">
+                                                </a>
+                                            </button>
+                                            <?php
+                                            }
+                                          ?>
+
+
                                         </div>
                                         <div class="media">
                                             <img class="mr-3 mt-2" src="<?php echo $row->groupteacherimg; ?>"
