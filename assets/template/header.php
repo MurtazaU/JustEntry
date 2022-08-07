@@ -17,5 +17,26 @@ if(!isset($_SESSION['user_email'])){
 		<link rel="stylesheet" href="./assets/CSS/sidebar.css">
         <script src="https://kit.fontawesome.com/e1a5a5ef59.js" crossorigin="anonymous"></script>
 
+        <style>
+            #sidebar{
+              position: fixed;
+              height: 100%;
+              z-index: 200;
+          }
+          #content{
+              margin-left: 250px;
+              padding: 1px 16px;
+              height: 1000px;
+          }
+          @media screen and (max-width: 1000px) {
+            #content {margin-left: 0;}
+          }
+          @media screen and (max-width: 700px) {
+            #content {margin-left: 0;}
+          }
+
+        </style>
+
+
   </head>
   <body>

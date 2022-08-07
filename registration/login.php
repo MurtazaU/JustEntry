@@ -49,7 +49,8 @@ if(isset($_POST['user_submit'])){
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-5">Log In</p>
+                <p class="text-center h1 fw-bold mx-1 mx-md-4 mt-5">Log In</p>
+                <p class="text-center fw-bold mb-5 ">To Continue To Just Entry</p>
 
                 <form class="mx-1 mx-md-4" method="POST">
 
@@ -76,6 +77,13 @@ if(isset($_POST['user_submit'])){
                     </label>
                   </div> -->
 
+                  <div class="d-flex flex-row align-items-center mb-2">
+                    <div class="flex-fill  ">
+                      <p class="text-center">
+                      Don't Have An Account? <a href="./register.php" class="text-decoration-none">Register</a>
+                      </p>
+                    </div>
+                  </div>
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <input type="submit" class="btn btn-outline-primary  " name="user_submit" value="Log In" />
                   </div>

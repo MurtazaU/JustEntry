@@ -104,6 +104,14 @@ if(isset($_POST['user_submit'])){
                     </label>
                   </div> -->
 
+                  <div class="d-flex flex-row align-items-center mb-2">
+                    <div class="flex-fill  ">
+                      <p class="text-center ">
+                        Already Have An Account? <a href="./login.php" class="text-decoration-none">Login</a>
+                      </p>
+                    </div>
+                  </div>
+
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <input type="submit" class="btn btn-outline-primary  " name="user_submit" value="Sign Up" />
                   </div>
