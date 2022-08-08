@@ -1,0 +1,132 @@
+<?php
+session_start();
+if(!isset($_SESSION['user_email'])){
+    header('location: ./registration/login.php');
+}
+include('./database-connection.php');
+
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Just Entry</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../CSS/sidebar.css">
+    <script src="https://kit.fontawesome.com/e1a5a5ef59.js" crossorigin="anonymous"></script>
+    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <style>
+    #sidebar {
+        position: fixed;
+        height: 100%;
+        z-index: 200;
+    }
+    #content {
+        margin-left: 250px;
+        padding: 1px 16px;
+        height: 1000px;
+    }
+    @media screen and (max-width: 1000px) {
+        #content {
+            margin-left: 0;
+        }
+    }
+    @media screen and (max-width: 700px) {
+        #content {
+            margin-left: 0;
+        }
+    }
+    </style>
+
+    <link rel="stylesheet" href="../CSS/upload.css">
+
+</head>
+
+<body>
+<link rel="stylesheet" href="../CSS/home.css">
+
+<div class="wrapper d-flex align-items-stretch vh-100">
+    <nav class="h-100 " id="sidebar">
+        <div class="custom-menu">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                <i class="fa fa-bars"></i>
+                <span class="sr-only">Toggle Menu</span>
+            </button>
+        </div>
+        <div class="p-4 ">
+            <h1><a href="./index.php" class="logo">JustEntry </a></h1>
+            <ul class="list-unstyled components mb-5 mt-5 sidebar-links">
+                <li >
+                    <a href="../../index.php" class="mt-3"><span class="fa fa-home mr-3"></span>DashBoard</a>
+                </li>
+                <li>
+                    <a href="../../account/account.php" class="mt-3"><span class="fa fa-solid fa-user mr-3"></span>Account</a>
+                </li>
+                <li>
+                    <a href="../../registration/logout.php" class="mt-3"><span
+                            class="fa fa-solid fa-arrow-right-from-bracket mr-3"></span>LogOut</a>
+                </li>
+            </ul>
+
+            <div class="footer">
+                <p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>
+                    document.write(new Date().getFullYear());
+                    </script> All rights reserved | This template is made <i class="icon-heart" aria-hidden="true"></i>
+                    by <a href="https://colorcom" target="_blank">Colorlib.com</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </div>
+
+
+        </div>
+    </nav>
+
+
+
+    <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Upload File</h2>
+        
+
+        <?php
+                if(isset($_REQUEST['user_edit_image'])){
+                    $uploadfile = $_FILES["upload_file"]['name'];
+                    $uploadtmpname = $_FILES["upload_file"]['tmp_name'];
+                    $group_name = $_GET['group'];
+                    $useremail = $_SESSION['user_email'];
+
+                    move_uploaded_file($uploadtmpname, "../../upload-files/$uploadfile");
+
+                    $sql = $con->prepare('insert into uploads(uploaduser, uploadgroup, uploadfile1) values (?,?,?)');
+                    $sql->bindParam(1,$useremail);
+                    $sql->bindParam(2,$group_name);
+                    $sql->bindParam(3, $uploadfile);
+                    $sql-> execute();
+                    
+                }
+        ?>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            <input class="form-control form-control-lg" type="file" name="upload_file" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+            <button class="btn btn-primary mt-3 w-50 form-control text-white" type="submit" name="user_edit_image" >Upload Image </button>
+        </form>
+
+
+
+       <!-- SCRIPTS -->
+       <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>    
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="../JS/sidebar.js"></script>
+    <script src="../JS/upload.js"></script>
+
+    </script>
+    </body>
+    </html>

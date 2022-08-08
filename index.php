@@ -1,6 +1,8 @@
 <?php
 include('./assets/template/header.php');
 include('./assets/modules/database-connection.php');
+
+
 ?>
 <link rel="stylesheet" href="./assets/CSS/home.css">
 
@@ -20,7 +22,7 @@ include('./assets/modules/database-connection.php');
                     <a href="./index.php" class="mt-3"><span class="fa fa-home mr-3"></span>DashBoard</a>
                 </li>
                 <li>
-                    <a href="./upload.php" class="mt-3"><span class="fa fa-solid fa-upload mr-3"></span> Upload</a>
+                    <a href="./account/account.php" class="mt-3"><span class="fa fa-solid fa-user mr-3"></span>Account</a>
                 </li>
                 <li>
                     <a href="./registration/logout.php" class="mt-3"><span
@@ -92,28 +94,30 @@ include('./assets/modules/database-connection.php');
                                             $count = $query->rowCount();
                                             if($count <= 0){
                                               ?>
-                                            <button type="button" name="join_group"
+                                            <button type="submit" name="join_group"
                                                 class="btn btn-primary mb-3 mx-1 form-control col-12" id="group_id">
                                                 <a href='./assets/modules/joingroup.php?name=<?php echo $row->groupname; ?>'
                                                     class="text-white">Join
                                                     Group</a> </button>
                                             <?php
                                             } else{
-                                              ?>
+                                            ?>
                                             <button type="submit" name="leave_group"
                                                 class="btn btn-red mb-3 mx-1 form-control col-10" id="group_id">
                                                 <a href='./assets/modules/leavegroup.php?name=<?php echo $row->groupname; ?>'
                                                     class="text-white">Leave Group</a> </button>
 
-                                            <button type="button" name="join_group"
-                                                class="btn upload-btn mb-3 mx-1 form-control col-2" id="group_id">
-                                                <a href='' class="text-white"> <span
+                                            <button type="button" 
+                                                class="btn upload-btn mb-3 mx-1 form-control col-2" id="group_id"  name="upload_file">
+                                                <a href="./assets/modules/upload.php?group=<?php echo $row->groupname; ?>">
+                                                 <span
                                                         class="mx-1 fa fa-solid fa-upload mr-3">
-                                                </a>
+                                                 </span>
+                                                 </a>
                                             </button>
+
                                             <?php
-                                            }
-                                          ?>
+                                            }?>
 
 
                                         </div>
