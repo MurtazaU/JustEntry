@@ -46,10 +46,13 @@ $groupsrecord = $groupstablesql -> fetchAll(PDO::FETCH_OBJ);
                     <a href="./users.php" class="mt-3"><span class="fa fa-solid fa-user mr-3"></span>Users</a>
                 </li>
                 <li>
-                    <a href="./users.php" class="mt-3"><span class="fa fa-solid fa-people-group mr-3"></span>Groups</a>
+                    <a href="./groups.php" class="mt-3"><span class="fa fa-solid fa-people-group mr-3"></span>Groups</a>
                 </li>
                 <li>
                     <a href="./users.php" class="mt-3"><span class="fa fa-solid fa-circle-plus mr-3"></span>New Group</a>
+                </li>
+                <li>
+                    <a href="../index.php" class="mt-3"><span class="fa fa-solid fa-user-lock mr-3"></span>User Dashboard</a>
                 </li>
                 <li>
                     <a href="../registration/logout.php" class="mt-3"><span

@@ -27,17 +27,20 @@ $newusercount = $newusersql->rowCount();
         <div class="p-4 ">
             <h1><a href="./index.php" class="logo">JustEntry </a></h1>
             <ul class="list-unstyled components mb-5 mt-5 sidebar-links">
-                <li class="active ">
+                <li >
                     <a href="./adminpanel.php" class="mt-3"><span class="fa fa-home mr-3"></span>Main Panel</a>
                 </li>
-                <li>
+                <li class="active ">
                     <a href="./users.php" class="mt-3"><span class="fa fa-solid fa-user mr-3"></span>Users</a>
                 </li>
                 <li>
-                    <a href="./users.php" class="mt-3"><span class="fa fa-solid fa-people-group mr-3"></span>Groups</a>
+                    <a href="./groups.php" class="mt-3"><span class="fa fa-solid fa-people-group mr-3"></span>Groups</a>
                 </li>
                 <li>
                     <a href="./users.php" class="mt-3"><span class="fa fa-solid fa-circle-plus mr-3"></span>New Group</a>
+                </li>
+                <li>
+                    <a href="../index.php" class="mt-3"><span class="fa fa-solid fa-user-lock mr-3"></span>User Dashboard</a>
                 </li>
                 <li>
                     <a href="../registration/logout.php" class="mt-3"><span
@@ -70,7 +73,7 @@ $newusercount = $newusersql->rowCount();
     <!-- Total Analytics -->
 
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6 col-lg-6 col-sm-12">
  <div class="row">
       <div class="col-12 mt-3 mb-1">
         <h5 class="text-uppercase text-center">Total Users:</h5>
@@ -97,7 +100,7 @@ $newusercount = $newusersql->rowCount();
 </div>
       </div>
 
-      <div class="col-6">
+      <div class="col-md-6 col-lg-6 col-sm-12">
  <div class="row">
       <div class="col-12 mt-3 mb-1">
         <h5 class="text-uppercase text-center">New Users:</h5>

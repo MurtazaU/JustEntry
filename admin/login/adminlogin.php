@@ -77,7 +77,13 @@ if(isset($_POST['user_submit'])){
                       I agree all statements in <a href="#!">Terms of service</a>
                     </label>
                   </div> -->
-
+                    <div class="d-flex flex-row align-items-center mb-2">
+                    <div class="flex-fill  ">
+                      <p class="text-center">
+                      Not An Admin? <a href="../../registration/login.php" class="text-decoration-none">Click Here</a>
+                      </p>
+                    </div>
+                  </div>
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <input type="submit" class="btn btn-outline-primary  " name="user_submit" value="Log In" />
                   </div>

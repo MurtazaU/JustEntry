@@ -94,6 +94,15 @@ include('./database-connection.php');
                 <li>
                     <a href="../../account/account.php" class="mt-3"><span class="fa fa-solid fa-user mr-3"></span>Account</a>
                 </li>
+                                <?php 
+                if(isset($_SESSION['admin_email'])){
+                    ?>
+                <li>
+                    <a href="./admin/adminpanel.php" class="mt-3"><span class="fa fa-solid fa-unlock mr-3"></span>Admin Panel</a>
+                </li>
+                    <?php
+                }
+                ?>
                 <li>
                     <a href="../../registration/logout.php" class="mt-3"><span
                             class="fa fa-solid fa-arrow-right-from-bracket mr-3"></span>LogOut</a>
