@@ -5,7 +5,7 @@ if(isset($_POST['user_submit'])){
     $user_email = $_REQUEST['user_email'];
     $user_password = $_REQUEST['user_password'];
     $user_confirm = $_REQUEST['user_confirm'];
-    // $date = date()
+    $date = date("d M Y");
 
     if($user_password != $user_confirm){
         echo "<script>alert('Please Confirm Your Password')</script>";
@@ -17,10 +17,11 @@ if(isset($_POST['user_submit'])){
 
         if($query_count == 0){
 
-            $sql = $con->prepare('insert into users(username,useremail,userpassword) values (?,?,?)');
+            $sql = $con->prepare('insert into users(username,useremail,userpassword, registrationdate) values (?,?,?,?)');
             $sql->bindParam(1,$user_name);
             $sql->bindParam(2,$user_email);
             $sql->bindParam(3,$user_password);
+            $sql->bindParam(4,$date);
     
             $sql->execute();
     
