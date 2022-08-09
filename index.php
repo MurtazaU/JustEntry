@@ -111,7 +111,7 @@ include('./assets/modules/database-connection.php');
                                                 class="btn upload-btn mb-3 mx-1 form-control col-2" id="group_id"  name="upload_file">
                                                 <a href="./assets/modules/upload.php?group=<?php echo $row->groupname; ?>">
                                                  <span
-                                                        class="mx-1 fa fa-solid fa-upload mr-3">
+                                                        class="mx-1 fa fa-solid fa-upload mr-3 text-white">
                                                  </span>
                                                  </a>
                                             </button>
@@ -119,15 +119,6 @@ include('./assets/modules/database-connection.php');
                                             <?php
                                             }?>
 
-
-                                        </div>
-                                        <div class="media">
-                                            <img class="mr-3 mt-2" src="<?php echo $row->groupteacherimg; ?>"
-                                                alt="Teacher Picture" style="width:50px; height:35px;">
-                                            <div class="media-body">
-                                                <h6 class="my-3 text-white d-block"><?php echo $row->groupteacher; ?>
-                                                </h6>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -141,12 +132,12 @@ include('./assets/modules/database-connection.php');
                 </div>
 
             </div>
-    </div>
-</div>
+
 
 
 </section>
-
+</div>
+                </div>
 
 
 <?php

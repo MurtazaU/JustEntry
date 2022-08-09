@@ -4,11 +4,32 @@ if(!isset($_SESSION['user_email'])){
     header('location: ./registration/login.php');
 }
 include('./database-connection.php');
+                    $group_name = $_GET['group'];
+                    $useremail = $_SESSION['user_email'];
+                    $query = $con->prepare('select * from uploads where uploadgroup = ? && uploaduser = ?');
+                    $query->bindParam(1,$group_name);
+                    $query->bindParam(2,$useremail);
+                    $query-> execute();
+                    $count = $query -> rowCount();
+                    $record = $query -> fetchAll(PDO::FETCH_OBJ);
 
+                    if(isset($_REQUEST['user_upload_file'])){
+                    $uploadfile = $_FILES["upload_file"]['name'];
+                    $uploadtmpname = $_FILES["upload_file"]['tmp_name'];
+                    $uploadtype = $_FILES["upload_file"]['type'];
+                    move_uploaded_file($uploadtmpname, "../../upload-files/$uploadfile");
+                    $sql = $con->prepare('insert into uploads(uploaduser, uploadgroup, uploadfile, uploadfiletype) values (?,?,?,?)');
+                    $sql->bindParam(1,$useremail);
+                    $sql->bindParam(2,$group_name);
+                    $sql->bindParam(3, $uploadfile);
+                    $sql->bindParam(4, $uploadtype);
+                    $sql-> execute();
+                    header('location: ../../index.php');
+                    }
+                    
 ?>
 <!doctype html>
 <html lang="en">
-
 <head>
     <title>Just Entry</title>
     <meta charset="utf-8">
@@ -16,6 +37,7 @@ include('./database-connection.php');
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../CSS/sidebar.css">
     <script src="https://kit.fontawesome.com/e1a5a5ef59.js" crossorigin="anonymous"></script>
@@ -30,6 +52,12 @@ include('./database-connection.php');
         margin-left: 250px;
         padding: 1px 16px;
         height: 1000px;
+    }
+    .upload-card{
+        border-radius: 5%;
+    }
+    .delete-btn{
+        background-color: #dc3545;
     }
     @media screen and (max-width: 1000px) {
         #content {
@@ -48,7 +76,6 @@ include('./database-connection.php');
 </head>
 
 <body>
-<link rel="stylesheet" href="../CSS/home.css">
 
 <div class="wrapper d-flex align-items-stretch vh-100">
     <nav class="h-100 " id="sidebar">
@@ -92,34 +119,59 @@ include('./database-connection.php');
 
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5 pt-5">
-        <h2 class="mb-4">Upload File</h2>
-        
-
-        <?php
-                if(isset($_REQUEST['user_edit_image'])){
-                    $uploadfile = $_FILES["upload_file"]['name'];
-                    $uploadtmpname = $_FILES["upload_file"]['tmp_name'];
-                    $group_name = $_GET['group'];
-                    $useremail = $_SESSION['user_email'];
-
-                    move_uploaded_file($uploadtmpname, "../../upload-files/$uploadfile");
-
-                    $sql = $con->prepare('insert into uploads(uploaduser, uploadgroup, uploadfile1) values (?,?,?)');
-                    $sql->bindParam(1,$useremail);
-                    $sql->bindParam(2,$group_name);
-                    $sql->bindParam(3, $uploadfile);
-                    $sql-> execute();
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12">
+            <h2 class="mb-4 ">Upload A File:</h2>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="col-md-6 col-lg-4 col-sm-12">
+                    <input class="form-control form-control-lg" type="file" name="upload_file" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+                    <p class="text-muted m-2">Please Upload Only .docx Files</p>
+                    <p class="text-muted m-2">Please Upload A Maximum Of 3 Files</p>
+                    <?php
+                    if(3 <= $count)
+                    { ?>
+                    <button class="btn btn-primary mt-3 w-50 form-control form-control-lg  text-white" disabled>Upload Image </button>
+                    <?php
+                    } else{
+                        ?>
+                        <button class="btn btn-primary mt-3 w-50 form-control form-control-lg  text-white" type="submit" name="user_upload_file" >Upload Image </button>
+                        <?php
+                    }
+                    ?>
                     
-                }
-        ?>
-
-        <form action="" method="POST" enctype="multipart/form-data">
-            <input class="form-control form-control-lg" type="file" name="upload_file" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-            <button class="btn btn-primary mt-3 w-50 form-control text-white" type="submit" name="user_edit_image" >Upload Image </button>
-        </form>
+                </div>
+            </form>
+        </div>
+       
+    </div>
 
 
 
+    <div class="row">
+        <h2 class="mb-2 mt-4">Your Files:</h2>
+            <?php
+                foreach($record as $row){
+            ?>
+            <div class="card upload-card col-md-3 col-lg-3 col-sm-12 mx-2 my-2 text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">File Name: <?php echo $row->uploadfile ?></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">File Type: Docx</h6>
+                            <a href="./upload/delete-file.php?fileId=<?php echo $row->uploadid ?>">
+                                <input type="submit" class="btn btn-danger delete-btn form-control text-white mb-2  mt-3" name="delete_file" value="Delete File"/>
+                            </a>
+                    <br/>
+                </div>
+            </div>
+        <?php
+    }
+    ?>
+    </div>
+</div>
+
+
+    </div>
+</div>
        <!-- SCRIPTS -->
        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>    
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
