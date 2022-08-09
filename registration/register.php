@@ -5,7 +5,7 @@ if(isset($_POST['user_submit'])){
     $user_email = $_REQUEST['user_email'];
     $user_password = $_REQUEST['user_password'];
     $user_confirm = $_REQUEST['user_confirm'];
-    $date = date("d M Y");
+    $date = date("Y-m-d");
 
     if($user_password != $user_confirm){
         echo "<script>alert('Please Confirm Your Password')</script>";

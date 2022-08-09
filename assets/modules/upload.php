@@ -135,7 +135,7 @@ include('./database-connection.php');
                     <?php
                     } else{
                         ?>
-                        <button class="btn btn-primary mt-3 w-50 form-control form-control-lg  text-white" type="submit" name="user_upload_file" >Upload Image </button>
+                        <button class="btn btn-primary mt-3 w-50 form-control form-control-lg  text-white" type="submit" name="user_upload_file" >Upload File </button>
                         <?php
                     }
                     ?>

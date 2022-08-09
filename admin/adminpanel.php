@@ -3,14 +3,17 @@ include('../assets/admintemplate/header.php');
 include('../assets/modules/database-connection.php');
 
 // Users
-$usersql = $con->prepare('select * from users');
+$usersql = $con->prepare('select * from users ');
 $usersql -> execute();
 $usercount = $usersql->rowCount();
-$userrecord = $usersql -> fetchAll(PDO::FETCH_OBJ);
 
+// Users Table
+$usertablesql = $con->prepare('select * from users limit 0, 5');
+$usertablesql -> execute();
+$userrecord = $usertablesql -> fetchAll(PDO::FETCH_OBJ);
 
 // Uploads
-$uploadsql = $con->prepare('select * from uploads');
+$uploadsql = $con->prepare('select * from uploads ');
 $uploadsql -> execute();
 $uploadcount = $uploadsql->rowCount();
 
@@ -18,8 +21,11 @@ $uploadcount = $uploadsql->rowCount();
 $groupssql = $con->prepare('select * from groups');
 $groupssql -> execute();
 $groupscount = $groupssql->rowCount();
-$groupsrecord = $groupssql -> fetchAll(PDO::FETCH_OBJ);
 
+// Groups Table
+$groupstablesql = $con->prepare('select * from groups limit 0, 5');
+$groupstablesql -> execute();
+$groupsrecord = $groupstablesql -> fetchAll(PDO::FETCH_OBJ);
 ?>
 
 <div class="wrapper d-flex align-items-stretch vh-100">
@@ -57,7 +63,7 @@ $groupsrecord = $groupssql -> fetchAll(PDO::FETCH_OBJ);
                     Copyright &copy;<script>
                     document.write(new Date().getFullYear());
                     </script> All rights reserved | This template is made <i class="icon-heart" aria-hidden="true"></i>
-                    by <a href="https://colorcom" target="_blank">Colorlib.com</a>
+                    by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>
@@ -194,32 +200,30 @@ $groupsrecord = $groupssql -> fetchAll(PDO::FETCH_OBJ);
     <tr>
       <th>Group Id</th>
       <th>Group Name</th>
-      <th class="text-center">Total Users</th>
+      <th>Group Grade</th>
+      <th>Group Desc</th>
     </tr>
   </thead>
   <tbody>
+        <?php 
+    foreach($groupsrecord as $row){
+        ?>
     <tr>
       <td>
-        <div class="d-flex align-items-center">
-          <img
-            src="https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png"
-              style="width: 45px; height: 45px"
-              class="rounded-circle"
-              />
-          <div class="ms-3">
-            <p class="fw-bold mb-1">Maths</p>
-          </div>
-        </div>
+        <p class="fw-bold mb-1"> <?php echo $row->groupid; ?> </p>
       </td>
       <td>
-        <p class="fw-normal mb-1 text-center">256</p>
+        <p class="fw-normal mb-1 "><?php echo $row->groupname; ?></p>
       </td>
       <td>
-        <p class="fw-normal mb-1 text-center">256</p>
+        <p class="fw-normal mb-1 "><?php echo $row->groupgrade; ?></p>
+      </td>
+      <td>
+        <p class="fw-normal mb-1 "><?php echo $row->groupdesc; ?></p>
       </td>
      
     </tr>
-   
+   <?php } ?>
    
   </tbody>
 

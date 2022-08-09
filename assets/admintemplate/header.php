@@ -45,13 +45,8 @@ if(!isset($_SESSION['user_email'])){
         }
     }
 
-    .btn-red {
-        background-color: red;
-    }
+    .table_outer { height: 5em; overflow: auto; }
 
-    .upload-btn {
-        background-color: green;
-    }
     </style>
 
 

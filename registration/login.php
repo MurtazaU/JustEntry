@@ -82,6 +82,9 @@ if(isset($_POST['user_submit'])){
                       <p class="text-center">
                       Don't Have An Account? <a href="./register.php" class="text-decoration-none">Register</a>
                       </p>
+                      <p class="text-center">
+                      Or Login As An <a href="../admin/login/adminlogin.php" class="text-decoration-none">Admin</a>
+                      </p>
                     </div>
                   </div>
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
