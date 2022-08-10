@@ -116,7 +116,7 @@ include('./assets/modules/database-connection.php');
 
                                             <button type="button" 
                                                 class="btn upload-btn mb-3 mx-1 form-control col-2" id="group_id"  name="upload_file">
-                                                <a href="./assets/modules/upload.php?group=<?php echo $row->groupname;?>">
+                                                <a href="./assets/modules/upload.php?group=<?php echo $row->groupname;?>&groupid=<?php echo $row->groupid; ?>">
                                                  <span
                                                         class="mx-1 fa fa-solid fa-upload mr-3 text-white">
                                                  </span>

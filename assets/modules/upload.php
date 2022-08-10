@@ -4,6 +4,7 @@ if(!isset($_SESSION['user_email'])){
     header('location: ./registration/login.php');
 }
 include('./database-connection.php');
+                    $groupusersid = $_GET['groupid'];
                     $group_name = $_GET['group'];
                     $useremail = $_SESSION['user_email'];
                     $query = $con->prepare('select * from uploads where uploadgroup = ? && uploaduser = ?');
@@ -26,6 +27,12 @@ include('./database-connection.php');
                     $sql-> execute();
                     header("Refresh:0");
                     }
+
+                    // User Fetching
+                    $usersql = $con -> prepare('select * from users where groupnameid = ?');
+                    $usersql->bindParam(1, $groupusersid);
+                    $usersql->execute();
+                    $userrecord = $usersql -> fetchAll(PDO::FETCH_OBJ);
                     
 ?>
 <!doctype html>
@@ -176,12 +183,53 @@ include('./database-connection.php');
     }
     ?>
     </div>
+    <div class="row">
+      <div class="col-12 mt-3 mb-1">
+        <h5 class="text-uppercase mt-5">Total Users:</h5>
+      </div>
+    </div>
+
+<table class="table align-middle mb-0 bg-white">
+  <thead class="bg-light">
+    <tr>
+      <th>User Id</th>
+      <th>User Name</th>
+      <th>User Email</th>
+      <th>User Password</th>
+      <th>User Registration Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php 
+    foreach($userrecord as $row){
+        ?>
+ <tr>
+      <td>
+            <p class="fw-bold mb-1"><?php echo $row->userid; ?></p>
+      </td>
+      <td>
+            <p class="mb-1"><?php echo $row->username; ?></p>
+      </td>
+      <td>
+            <p class=" mb-1"><?php echo $row->useremail; ?></p>
+      </td>
+      <td>
+        <p class=" mb-1 "><?php echo $row->userpassword; ?></p>
+      </td>
+      <td>
+        <p class=" mb-1 "><?php echo $row->registrationdate; ?></p>
+      </td>
+     
+    </tr>
+        <?php
+    }
+    ?>
+  </tbody>
+</table>
 </div>
 
 
-    <div class="row">
-        <h2 class="mb mt-4">Group Members:</h2>
-    </div>
+
 
 
     </div>
