@@ -65,11 +65,12 @@ include('./assets/modules/database-connection.php');
                 <div class="row">
                     <div class="text-center mb-5">
                         <h1 class="display-4">View Groups</h1>
+                        <h5>You Can Only Join A Single Group At Once</h5>
                     </div>
                 </div>
                 <div class="row">
                     <?php 
-                    $sql = $con->prepare('select * from groups');
+                    $sql = $con->prepare('select * from groups limit 1,1000');
                     $sql -> execute();
                     $record = $sql -> fetchAll(PDO::FETCH_OBJ);
                     foreach($record as $row){
@@ -84,29 +85,25 @@ include('./assets/modules/database-connection.php');
                                             <?php echo $row->groupgrade; ?></small>
                                         <h4 class="card-title mt-0 "><a
                                                 class="text-white"><?php echo $row->groupname; ?></a></h4>
-                                        <style>
-                                        @media (max-width: 420px) {
-                                            .group-desc {
-                                                display: none;
-                                            }
-                                        }
-                                        </style>
-                                        <p class="card-title mt-0 text-white group-desc">
-                                            <?php echo $row->groupdesc; ?></p>
                                     </div>
                                     <div class="card-footer">
                                         <div class="media">
                                             <?php
-                                            $query = $con -> prepare("select * from users where $row->groupname = 1 && useremail = ?");
-                                            // $query->bindParam(1, $group_name);
-                                            $query->bindParam(1, $_SESSION['user_email']);
+                                            $query = $con -> prepare("select * from users where groupnameid = ? && useremail = ?");
+                                            $query->bindParam(1, $row->group_name);
+                                            $query->bindParam(2, $_SESSION['user_email']);
                                             $query -> execute();
                                             $count = $query->rowCount();
-                                            if($count <= 0){
+
+                                            $sql = $con -> prepare("select groupnameid from users");
+                                            $sql -> execute();
+                                            $group_name_id = $sql -> fetchAll(PDO::FETCH_OBJ);
+                                            foreach($group_name_id as $group_name){
+                                            if($row->groupid != $group_name->groupnameid){
                                               ?>
                                             <button type="submit" name="join_group"
                                                 class="btn btn-primary mb-3 mx-1 form-control col-12" id="group_id">
-                                                <a href='./assets/modules/joingroup.php?name=<?php echo $row->groupname; ?>'
+                                                <a href='./assets/modules/joingroup.php?id=<?php echo $row->groupid; ?>'
                                                     class="text-white">Join
                                                     Group</a> </button>
                                             <?php
@@ -119,7 +116,7 @@ include('./assets/modules/database-connection.php');
 
                                             <button type="button" 
                                                 class="btn upload-btn mb-3 mx-1 form-control col-2" id="group_id"  name="upload_file">
-                                                <a href="./assets/modules/upload.php?group=<?php echo $row->groupname; ?>">
+                                                <a href="./assets/modules/upload.php?group=<?php echo $row->groupname;?>">
                                                  <span
                                                         class="mx-1 fa fa-solid fa-upload mr-3 text-white">
                                                  </span>
@@ -127,7 +124,10 @@ include('./assets/modules/database-connection.php');
                                             </button>
 
                                             <?php
-                                            }?>
+                                            }}?>
+                                            
+
+
 
                                         </div>
                                     </div>

@@ -22,8 +22,6 @@ if(isset($_POST['user_submit'])){
       echo "<script>alert('Invalid Credentials')</script>";
     }
 
-
-
 }
 ?>
 
@@ -70,12 +68,9 @@ if(isset($_POST['user_submit'])){
                     </div>
                   </div>
 
-                  <!-- <div class="form-check d-flex justify-content-center mb-5">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                    <label class="form-check-label" for="form2Example3">
-                      I agree all statements in <a href="#!">Terms of service</a>
-                    </label>
-                  </div> -->
+                  <div>
+                    <p> <?php $_SESSION['message']; ?> </p>
+                  </div>
 
                   <div class="d-flex flex-row align-items-center mb-2">
                     <div class="flex-fill  ">

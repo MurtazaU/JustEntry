@@ -1,9 +1,10 @@
 <?php
 session_start();
 include('./database-connection.php');
-$group_name = $_GET['name'];
-$sql = $con->prepare("update users set $group_name = 1 where useremail = ?");
-$sql->bindParam(1, $_SESSION['user_email']);
+$group_id = $_GET['id'];
+$sql = $con->prepare("update users set groupnameid = ? where useremail = ?");
+$sql->bindParam(1, $group_id);
+$sql->bindParam(2, $_SESSION['user_email']);
 $sql->execute();
 header('location: ../../index.php');
 

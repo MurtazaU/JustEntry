@@ -6,6 +6,9 @@ if(isset($_POST['user_submit'])){
     $user_password = $_REQUEST['user_password'];
     $user_confirm = $_REQUEST['user_confirm'];
     $date = date("Y-m-d");
+    $token = bin2hex(random_bytes(15));
+    $status = 'unactivated';
+
 
     if($user_password != $user_confirm){
         echo "<script>alert('Please Confirm Your Password')</script>";
@@ -22,20 +25,30 @@ if(isset($_POST['user_submit'])){
             $sql->bindParam(2,$user_email);
             $sql->bindParam(3,$user_password);
             $sql->bindParam(4,$date);
+            // $sql->bindParam(5,$token);
+            // $sql->bindParam(6,$status);
     
             $sql->execute();
-    
-            header('location: ./login.php');
-    
+            // Send Activation Mail
+              $subject = "Email Activation";
+              // $body = "Hi, $user_name. Welcome to JustEntryLevel. To continue further, kindly click here to activate your account:
+              // https://justentrylevel.com/registration/activate.php?token=$token ";
+              $body = "Hi, $user_name. Welcome to JustEntryLevel. To continue further, kindly click here to activate your account:
+              https://justentrylevel.com/registration/activate.php?email=$user_email ";
+              $headers = "From: murtazausmani985@gmail.com";
+
+              if (mail($user_email, $subject, $body, $headers)) {
+                  $_SESSION['message'] = "Kindly Check Your Email: $user_email  To Activate your account";
+                  header('location: ./login.php');
+              } else {
+                  // echo "<script>alert('Please Try Again')</script>";
+            };
     
     } else{
         echo "<script>alert('This Email Is Already In Use By Another Account')</script>";
-    }
-    }
+    };
+    };
     
-
-   
-        
 
 }
 

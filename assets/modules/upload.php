@@ -24,7 +24,7 @@ include('./database-connection.php');
                     $sql->bindParam(3, $uploadfile);
                     $sql->bindParam(4, $uploadtype);
                     $sql-> execute();
-                    header('location: ../../index.php');
+                    header("Refresh:0");
                     }
                     
 ?>
@@ -166,7 +166,7 @@ include('./database-connection.php');
                 <div class="card-body">
                     <h5 class="card-title">File Name: <?php echo $row->uploadfile ?></h5>
                     <h6 class="card-subtitle mb-2 text-muted">File Type: Docx</h6>
-                            <a href="./upload/delete-file.php?fileId=<?php echo $row->uploadid ?>">
+                            <a href="./upload/delete-file.php?fileId=<?php echo $row->uploadid ?>&group=<?php echo $group_name; ?>">
                                 <input type="submit" class="btn btn-danger delete-btn form-control text-white mb-2  mt-3" name="delete_file" value="Delete File"/>
                             </a>
                     <br/>
@@ -177,6 +177,11 @@ include('./database-connection.php');
     ?>
     </div>
 </div>
+
+
+    <div class="row">
+        <h2 class="mb mt-4">Group Members:</h2>
+    </div>
 
 
     </div>
