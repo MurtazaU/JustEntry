@@ -33,7 +33,7 @@ if(isset($_POST['user_submit'])){
             // Send Activation Mail
               $subject = "Email Activation";
               $body = "Hi, $user_name. Welcome to JustEntryLevel. To continue further, kindly click here to activate your account:
-              // https://justentrylevel.com/registration/activate.php?token=$token ";
+              https://justentrylevel.com/registration/activate.php?token=$token ";
               $headers = "From: murtazausmani985@gmail.com";
 
               if (mail($user_email, $subject, $body, $headers)) {

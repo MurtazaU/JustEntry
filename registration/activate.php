@@ -12,6 +12,8 @@ if(isset($_GET['token'])){
         if(isset($_SESSION['message'])){
             $_SESSION['message'] = 'Account Activated!';
             header('location: ./login.php');
+            session_unset();
+            session_destroy();
         } else{
             $_SESSION['message'] = 'Please Log In To Continue';
             header('location: ./login.php');
