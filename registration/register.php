@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('../assets/modules/database-connection.php');
 if(isset($_POST['user_submit'])){
     $user_name = $_REQUEST['user_name'];
@@ -20,28 +21,26 @@ if(isset($_POST['user_submit'])){
 
         if($query_count == 0){
 
-            $sql = $con->prepare('insert into users(username,useremail,userpassword, registrationdate) values (?,?,?,?)');
+            $sql = $con->prepare('insert into users(username,useremail,userpassword, registrationdate, token, status) values (?,?,?,?,?,?)');
             $sql->bindParam(1,$user_name);
             $sql->bindParam(2,$user_email);
             $sql->bindParam(3,$user_password);
             $sql->bindParam(4,$date);
-            // $sql->bindParam(5,$token);
-            // $sql->bindParam(6,$status);
+            $sql->bindParam(5,$token);
+            $sql->bindParam(6,$status);
     
             $sql->execute();
             // Send Activation Mail
               $subject = "Email Activation";
-              // $body = "Hi, $user_name. Welcome to JustEntryLevel. To continue further, kindly click here to activate your account:
-              // https://justentrylevel.com/registration/activate.php?token=$token ";
               $body = "Hi, $user_name. Welcome to JustEntryLevel. To continue further, kindly click here to activate your account:
-              https://justentrylevel.com/registration/activate.php?email=$user_email ";
+              // https://justentrylevel.com/registration/activate.php?token=$token ";
               $headers = "From: murtazausmani985@gmail.com";
 
               if (mail($user_email, $subject, $body, $headers)) {
                   $_SESSION['message'] = "Kindly Check Your Email: $user_email  To Activate your account";
                   header('location: ./login.php');
               } else {
-                  // echo "<script>alert('Please Try Again')</script>";
+                  echo "<script>alert('Please Try Again')</script>";
             };
     
     } else{
@@ -112,13 +111,6 @@ if(isset($_POST['user_submit'])){
                     </div>
                   </div>
 
-                  <!-- <div class="form-check d-flex justify-content-center mb-5">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                    <label class="form-check-label" for="form2Example3">
-                      I agree all statements in <a href="#!">Terms of service</a>
-                    </label>
-                  </div> -->
-
                   <div class="d-flex flex-row align-items-center mb-2">
                     <div class="flex-fill  ">
                       <p class="text-center ">
@@ -135,13 +127,8 @@ if(isset($_POST['user_submit'])){
 
               </div>
               <div class="col-md-10 col-lg-6 col-xl-7  order-1 order-lg-2">
-              <div data-bs-toggle="tooltip" data-bs-placement="top" title="Citizen vector created by storyset - www.freepik.com" >
-              <a target="_blank" href="https://www.freepik.com/vectors/citizen">
-                <img src="../assets/images/register.webp"
+                <img src="../assets/images/undraw_text_field_htlv.png"
                   class="img-fluid img" alt="SignUp-Image">
-                  </button>
-                  </a>
-                </div>
             </div>
 
         </div>

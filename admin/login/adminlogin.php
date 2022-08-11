@@ -92,12 +92,8 @@ if(isset($_POST['user_submit'])){
 
               </div>
               <div class="col-md-10 col-lg-6 col-xl-7  order-1 order-lg-2">
-              <div data-bs-toggle="tooltip" data-bs-placement="top" title="Access control vector created by vectorjuice - www.freepik.com" >
-              <a target="_blank" href="https://www.freepik.com/vectors/access-control">
-                <img src="../../assets/images/login.webp"
+                <img src="../../assets/images/undraw_Setup_analytics_re_foim.png"
                   class="img-fluid img" alt="LogIn-Image">
-                  </button>
-                  </a>
                 </div>
             </div>
 

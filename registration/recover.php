@@ -3,23 +3,24 @@ session_start();
 include('../assets/modules/database-connection.php');
 if(isset($_POST['user_submit'])){
     $user_email = $_REQUEST['user_email'];
-    $user_password = $_REQUEST['user_password'];
-    $status = 'active';
 
-
-    $sql = $con->prepare('select * from users where useremail = ? && userpassword = ? && status = ?');
+    $sql = $con->prepare('select * from users where useremail = ?');
     $sql->bindParam(1,$user_email);
-    $sql->bindParam(2,$user_password);
-    $sql->bindParam(3,$status);
 
     $sql->execute();
     $count = $sql->rowCount();
 
     if($count > 0){
-      $_SESSION['user_email'] = $user_email;
-      header('location: ../index.php');
-    } else{
-      echo "<script>alert('Invalid Credentials')</script>";
+         $subject = "Email Activation";
+              $body = "Hi, $user_name. Welcome to JustEntryLevel. To continue further, kindly click here to activate your account:
+              // https://justentrylevel.com/registration/activate.php?token=$token ";
+              $headers = "From: murtazausmani985@gmail.com";
+
+              if (mail($user_email, $subject, $body, $headers)) {
+                  $_SESSION['message'] = "Kindly Check Your Email: $user_email  To Activate your account";
+                  header('location: ./login.php');
+              }
+    
     }
 
 }
@@ -47,8 +48,7 @@ if(isset($_POST['user_submit'])){
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                <p class="text-center h1 fw-bold mx-1 mx-md-4 mt-5">Log In</p>
-                <p class="text-center fw-bold mb-5 ">To Continue To JustEntryLevel</p>
+                <p class="text-center h1 fw-bold mx-1 mx-md-4 mt-5">Recover Your Password</p>
 
                 <form class="mx-1 mx-md-4" method="POST">
 
@@ -60,41 +60,15 @@ if(isset($_POST['user_submit'])){
                     </div>
                   </div>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                    <div class="form-floating form-outline flex-fill mb-0">
-                        <input type="password" id="user_password" class="form-control" name="user_password" required/>
-                        <label  for="user_password">Password</label>
-                    </div>
-                  </div>
-
-                  <div>
-                    <?php 
-                      if(isset($_SESSION['message'])){?>
-                    <p class="bg-success text-center text-white p-2 rounded-3"> 
-                        <?php
-                        echo $_SESSION['message']; 
-
-                      } 
-                        ?> 
-                    </p>
-                  </div>
-
                   <div class="d-flex flex-row align-items-center mb-2">
                     <div class="flex-fill  ">
                       <p class="text-center">
                       Don't Have An Account? <a href="./register.php" class="text-decoration-none">Register</a>
                       </p>
-                      <p class="text-center">
-                      Or Login As An <a href="../admin/login/adminlogin.php" class="text-decoration-none">Admin</a>
-                      </p>
-                      <p class="text-center">
-                      Forgot You Password?<a href="./recover.php" class="text-decoration-none">Click Here To Recover</a>
-                      </p>
                     </div>
                   </div>
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <input type="submit" class="btn btn-outline-primary  " name="user_submit" value="Log In" />
+                    <input type="submit" class="btn btn-outline-primary  " name="user_submit" value="Recover" />
                   </div>
 
                 </form>
@@ -113,11 +87,5 @@ if(isset($_POST['user_submit'])){
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl)
-})
-</script>
 </body>
 </html>
