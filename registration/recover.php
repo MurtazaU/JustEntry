@@ -1,5 +1,7 @@
 <?php
 session_start();
+session_unset();
+session_destroy();
 include('../assets/modules/database-connection.php');
 if(isset($_POST['user_submit'])){
     $user_email = $_REQUEST['user_email'];
@@ -14,13 +16,17 @@ if(isset($_POST['user_submit'])){
 
     if($count > 0){
          $subject = "Password Recovery";
-              $body = "Hello and Welcome to JustEntryLevel. It seems like that you have forgotten your password. Don't Worry, and click the following link to reset your password?
-              https://justentrylevel.com/registration/resetpassword.php?email=$user_email ";
-              $headers = "From: murtazausmani985@gmail.com";
+              $body = "Hello, We noticed that you want to reset your password. Please click on the following link to make that change.
+                https://justentrylevel.com/registration/resetpassword.php?email=$user_email
+
+                Thanks
+                justEntry Team
+               ";
+              $headers = "From: Info@justentrylevel.com";
 
               if (mail($user_email, $subject, $body, $headers)) {
-                echo "<script>alert('Check Your Email To Recover Your Account')</script>";
-
+                echo '<p class="bg-success text-center text-white p-2 rounded-3">Please Check Your Email To Reset Your Password!</p>';
+                $_SESSION['reset-mail']= 'sent';
               }
     
     }else{
@@ -63,10 +69,20 @@ if(isset($_POST['user_submit'])){
                         <label for="user_email">Email</label>
                     </div>
                   </div>
-
-                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <input type="submit" class="btn btn-outline-primary  " name="user_submit" value="Recover" />
+                  <?php if(isset($_SESSION['reset-mail'])){
+                    ?>
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <input type="submit" class="btn btn-outline-primary  " disabled name="user_submit" value="Recover" />
                   </div>
+                    <?php
+                  } else{
+                    ?>
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <input type="submit" class="btn btn-outline-primary  " name="user_submit" value="Recover" />
+                    </div>
+                    <?php
+                  }?>
+
 
                 </form>
 

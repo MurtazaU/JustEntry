@@ -23,8 +23,10 @@ if(isset($_POST['user_submit'])){
             $sql->bindParam(1, $user_pass);
             $sql->bindParam(2, $user_email);
             $sql->execute();
-            echo "<script>alert('Your Password has been updated')</script>";
-            header('location: ./login.php');
+            echo '<p class="bg-success text-center text-white p-2 rounded-3">Your Password has been Updated!. Kinldy Log Back In To Continue </p>';
+            session_unset();
+            session_destroy();
+            
         } else{
         echo "<script>alert('Try Again')</script>";
         }

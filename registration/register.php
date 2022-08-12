@@ -34,7 +34,7 @@ if(isset($_POST['user_submit'])){
               $subject = "Email Activation";
               $body = "Hi, $user_name. Welcome to JustEntryLevel. To continue further, kindly click here to activate your account:
               https://justentrylevel.com/registration/activate.php?token=$token ";
-              $headers = "From: murtazausmani985@gmail.com";
+              $headers = "From: Info@justentrylevel.com";
 
               if (mail($user_email, $subject, $body, $headers)) {
                   $_SESSION['message'] = "Kindly Check Your Email: $user_email  To Activate your account";
