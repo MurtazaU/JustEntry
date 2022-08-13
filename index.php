@@ -45,8 +45,8 @@ include('./assets/modules/database-connection.php');
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>
                     document.write(new Date().getFullYear());
-                    </script> Copyright© 2022 All rights reserved. Powdered by justEntry| Developed by <a class="text-white" href="https://maszamtech.com" target="_blank">Maszam Technologies</a> | Template
-                    by <a href="https://colorlib.ccom" target="_blank">Colorlib.com</a>
+                    </script> All rights reserved. Powdered by justEntry | Developed by <a class="text-white" href="https://maszamtech.com" target="_blank">Maszam Technologies</a> <a href="">Template
+                    by <a href="https://colorlib.ccom" target="_blank">Colorlib.com</a></a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>
@@ -87,28 +87,26 @@ include('./assets/modules/database-connection.php');
                                     <div class="card-footer">
                                         <div class="media">
                                             <?php
+                                            $group = $con -> prepare("select groupnameid from users");
+                                            $group -> execute();
+                                            $group_name_id = $group -> fetchAll(PDO::FETCH_OBJ);
                                             $query = $con -> prepare("select * from users where groupnameid = ? && useremail = ?");
-                                            $query->bindParam(1, $row->group_name);
+                                            $query->bindParam(1, $row->group_id);
                                             $query->bindParam(2, $_SESSION['user_email']);
                                             $query -> execute();
-                                            $count = $query->rowCount();
-
-                                            $sql = $con -> prepare("select groupnameid from users");
-                                            $sql -> execute();
-                                            $group_name_id = $sql -> fetchAll(PDO::FETCH_OBJ);
                                             foreach($group_name_id as $group_name){
                                             if($row->groupid != $group_name->groupnameid){
                                               ?>
-                                            <button type="submit" name="join_group"
-                                                class="btn btn-primary mb-3 mx-1 form-control col-12" id="group_id">
+                                            <button
+                                                class="btn btn-primary mb-3 col-12" >
                                                 <a href='./assets/modules/joingroup.php?id=<?php echo $row->groupid; ?>'
                                                     class="text-white">Join
                                                     Group</a> </button>
                                             <?php
                                             } else{
                                             ?>
-                                            <button type="submit" name="view_group"
-                                                class="btn btn-red  mb-3 mx-auto form-control col-10" id="group_id">
+                                            <button
+                                                class="btn btn-red  mb-3 col-12" >
                                                 <a href='./assets/modules/upload.php?group=<?php echo $row->groupname;?>&groupid=<?php echo $row->groupid; ?>'
                                                     class="text-white">View Details</a> </button>
 

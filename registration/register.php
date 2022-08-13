@@ -53,7 +53,6 @@ if(isset($_POST['user_submit'])){
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

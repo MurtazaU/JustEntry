@@ -21,8 +21,7 @@ if(isset($_POST['user_submit'])){
     } else{
       echo "<script>alert('Invalid Credentials')</script>";
     }
-
-}
+  }
 ?>
 
 

@@ -116,11 +116,11 @@ if(isset($_POST['delete_button'])){
 
             <div class="footer">
                 <p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>
                     document.write(new Date().getFullYear());
-                    </script> Copyright© 2022 All rights reserved. Powdered by justEntry| Developed by <a class="text-white" href="https://maszamtech.com" target="_blank">Maszam Technologies</a> | Template
-                    by <a href="https://colorlib.ccom" target="_blank">Colorlib.com</a>
+                    </script> All rights reserved. Powdered by justEntry | Developed by <a class="text-white" href="https://maszamtech.com" target="_blank">Maszam Technologies</a> <a href="">Template
+                    by <a href="https://colorlib.ccom" target="_blank">Colorlib.com</a></a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>
@@ -128,8 +128,6 @@ if(isset($_POST['delete_button'])){
 
         </div>
     </nav>
-
-
 
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5 pt-5">
