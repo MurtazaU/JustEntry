@@ -4,7 +4,7 @@ if(!isset($_SESSION['user_email'])){
     header('location: ./registration/login.php');
 }
 include('./database-connection.php');
-                    $groupusersid = $_GET['groupid'];
+                    $groupid = $_GET['groupid']; 
                     $group_name = $_GET['group'];
                     $useremail = $_SESSION['user_email'];
                     $query = $con->prepare('select * from uploads where uploadgroup = ? && uploaduser = ?');
@@ -18,19 +18,23 @@ include('./database-connection.php');
                     $uploadfile = $_FILES["upload_file"]['name'];
                     $uploadtmpname = $_FILES["upload_file"]['tmp_name'];
                     $uploadtype = $_FILES["upload_file"]['type'];
-                    move_uploaded_file($uploadtmpname, "../../upload-files/$uploadfile");
-                    $sql = $con->prepare('insert into uploads(uploaduser, uploadgroup, uploadfile, uploadfiletype) values (?,?,?,?)');
-                    $sql->bindParam(1,$useremail);
-                    $sql->bindParam(2,$group_name);
-                    $sql->bindParam(3, $uploadfile);
-                    $sql->bindParam(4, $uploadtype);
-                    $sql-> execute();
-                    header("Refresh:0");
+                    if($uploadtype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+                        move_uploaded_file($uploadtmpname, "../../upload-files/$uploadfile");
+                        $sql = $con->prepare('insert into uploads(uploaduser, uploadgroup, uploadfile, uploadfiletype) values (?,?,?,?)');
+                        $sql->bindParam(1,$useremail);
+                        $sql->bindParam(2,$group_name);
+                        $sql->bindParam(3, $uploadfile);
+                        $sql->bindParam(4, $uploadtype);
+                        $sql-> execute();
+                        header("Refresh:0");
+                    } else{
+                        echo '<p class="bg-success sticky-top text-center text-white p-2 mb-0 rounded-3">Please Upload Only .docx Files!</p>'; 
+                    }
                     }
 
                     // User Fetching
                     $usersql = $con -> prepare('select * from users where groupnameid = ?');
-                    $usersql->bindParam(1, $groupusersid);
+                    $usersql->bindParam(1, $groupid);
                     $usersql->execute();
                     $userrecord = $usersql -> fetchAll(PDO::FETCH_OBJ);
                     
@@ -59,6 +63,9 @@ include('./database-connection.php');
         margin-left: 250px;
         padding: 1px 16px;
         height: 1000px;
+    }
+        .btn-red {
+        background-color: red;
     }
     .upload-card{
         border-radius: 5%;
@@ -99,7 +106,7 @@ include('./database-connection.php');
                     <a href="../../index.php" class="mt-3"><span class="fa fa-home mr-3"></span>DashBoard</a>
                 </li>
                 <li>
-                    <a href="../../account/account.php" class="mt-3"><span class="fa fa-solid fa-user mr-3"></span>Account</a>
+                    <a href="../../account/viewaccount.php" class="mt-3"><span class="fa fa-solid fa-user mr-3"></span>Account</a>
                 </li>
                                 <?php 
                 if(isset($_SESSION['admin_email'])){
@@ -121,8 +128,8 @@ include('./database-connection.php');
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>
                     document.write(new Date().getFullYear());
-                    </script> All rights reserved | This template is made <i class="icon-heart" aria-hidden="true"></i>
-                    by <a href="https://colorcom" target="_blank">Colorlib.com</a>
+                    </script> Copyright© 2022 All rights reserved. Powdered by justEntry| Developed by <a class="text-light" href="https://maszamtech.com" target="_blank">Maszam Technologies</a> | Template
+                    by <a href="https://colorlib.ccom" target="_blank">Colorlib.com</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>
@@ -137,7 +144,13 @@ include('./database-connection.php');
     <div id="content" class="p-4 p-md-5 pt-5">
 <div class="container">
     <div class="row">
+                    <button type="submit" name="view_group"
+            class="btn btn-red  mb-3  me-auto  col-4" id="group_id">
+            <a href='./leavegroup.php?group=<?php echo $group_name;?>?>'
+            class="text-white">Leave Group</a> </button>
         <div class="col-lg-12 col-sm-12">
+
+
             <h2 class="mb-4 ">Upload A File:</h2>
             <form method="POST" enctype="multipart/form-data">
                 <div class="col-md-6 col-lg-4 col-sm-12">
@@ -147,7 +160,7 @@ include('./database-connection.php');
                     <?php
                     if(3 <= $count)
                     { ?>
-                    <button class="btn btn-primary mt-3 w-50 form-control form-control-lg  text-white" disabled>Upload Image </button>
+                    <button class="btn btn-primary mt-3 w-50 form-control form-control-lg  text-white" disabled>Upload File </button>
                     <?php
                     } else{
                         ?>
@@ -173,7 +186,7 @@ include('./database-connection.php');
                 <div class="card-body">
                     <h5 class="card-title">File Name: <?php echo $row->uploadfile ?></h5>
                     <h6 class="card-subtitle mb-2 text-muted">File Type: Docx</h6>
-                            <a href="./upload/delete-file.php?fileId=<?php echo $row->uploadid ?>&group=<?php echo $group_name; ?>">
+                            <a href="./upload/delete-file.php?fileId=<?php echo $row->uploadid ?>&group=<?php echo $group_name;?>&groupid=<?php echo $groupid ?>">
                                 <input type="submit" class="btn btn-danger delete-btn form-control text-white mb-2  mt-3" name="delete_file" value="Delete File"/>
                             </a>
                     <br/>
@@ -192,11 +205,8 @@ include('./database-connection.php');
 <table class="table align-middle mb-0 bg-white">
   <thead class="bg-light">
     <tr>
-      <th>User Id</th>
       <th>User Name</th>
       <th>User Email</th>
-      <th>User Password</th>
-      <th>User Registration Date</th>
     </tr>
   </thead>
   <tbody>
@@ -205,19 +215,10 @@ include('./database-connection.php');
         ?>
  <tr>
       <td>
-            <p class="fw-bold mb-1"><?php echo $row->userid; ?></p>
-      </td>
-      <td>
             <p class="mb-1"><?php echo $row->username; ?></p>
       </td>
       <td>
             <p class=" mb-1"><?php echo $row->useremail; ?></p>
-      </td>
-      <td>
-        <p class=" mb-1 "><?php echo $row->userpassword; ?></p>
-      </td>
-      <td>
-        <p class=" mb-1 "><?php echo $row->registrationdate; ?></p>
       </td>
      
     </tr>

@@ -22,7 +22,7 @@ include('./assets/modules/database-connection.php');
                     <a href="./index.php" class="mt-3"><span class="fa fa-home mr-3"></span>DashBoard</a>
                 </li>
                 <li>
-                    <a href="./account/account.php" class="mt-3"><span class="fa fa-solid fa-user mr-3"></span>Account</a>
+                    <a href="./account/viewaccount.php" class="mt-3"><span class="fa fa-solid fa-user mr-3"></span>Account</a>
                 </li>
                 <?php 
                 if(isset($_SESSION['admin_email'])){
@@ -45,8 +45,8 @@ include('./assets/modules/database-connection.php');
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>
                     document.write(new Date().getFullYear());
-                    </script> All rights reserved | This template is made <i class="icon-heart" aria-hidden="true"></i>
-                    by <a href="https://colorcom" target="_blank">Colorlib.com</a>
+                    </script> Copyright© 2022 All rights reserved. Powdered by justEntry| Developed by <a class="text-white" href="https://maszamtech.com" target="_blank">Maszam Technologies</a> | Template
+                    by <a href="https://colorlib.ccom" target="_blank">Colorlib.com</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>
@@ -81,8 +81,6 @@ include('./assets/modules/database-connection.php');
                                 style="background-image:url('<?php echo $row->groupbgimg; ?>');">
                                 <div class="card-img-overlay d-flex flex-column">
                                     <div class="card-body">
-                                        <small class="card-meta mb-2 text-success">Grade:
-                                            <?php echo $row->groupgrade; ?></small>
                                         <h4 class="card-title mt-0 "><a
                                                 class="text-white"><?php echo $row->groupname; ?></a></h4>
                                     </div>
@@ -109,19 +107,10 @@ include('./assets/modules/database-connection.php');
                                             <?php
                                             } else{
                                             ?>
-                                            <button type="submit" name="leave_group"
-                                                class="btn btn-red mb-3 mx-1 form-control col-10" id="group_id">
-                                                <a href='./assets/modules/leavegroup.php?name=<?php echo $row->groupname; ?>'
-                                                    class="text-white">Leave Group</a> </button>
-
-                                            <button type="button" 
-                                                class="btn upload-btn mb-3 mx-1 form-control col-2" id="group_id"  name="upload_file">
-                                                <a href="./assets/modules/upload.php?group=<?php echo $row->groupname;?>&groupid=<?php echo $row->groupid; ?>">
-                                                 <span
-                                                        class="mx-1 fa fa-solid fa-upload mr-3 text-white">
-                                                 </span>
-                                                 </a>
-                                            </button>
+                                            <button type="submit" name="view_group"
+                                                class="btn btn-red  mb-3 mx-auto form-control col-10" id="group_id">
+                                                <a href='./assets/modules/upload.php?group=<?php echo $row->groupname;?>&groupid=<?php echo $row->groupid; ?>'
+                                                    class="text-white">View Details</a> </button>
 
                                             <?php
                                             }}?>

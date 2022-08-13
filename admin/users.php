@@ -49,12 +49,12 @@ $newusercount = $newusersql->rowCount();
             </ul>
 
             <div class="footer">
-                <p>
+                                <p>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>
                     document.write(new Date().getFullYear());
-                    </script> All rights reserved | This template is made <i class="icon-heart" aria-hidden="true"></i>
-                    by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                    </script> Copyright© 2022 All rights reserved. Powdered by justEntry| Developed by <a href="https://maszamtech.com" target="_blank">Maszam Technologies</a> | Template
+                    by <a href="https://colorlib.ccom" target="_blank">Colorlib.com</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>

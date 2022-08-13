@@ -48,7 +48,7 @@ if(!isset($_SESSION['user_email'])){
         background-color: red;
     }
 
-    .upload-btn {
+    .view-btn {
         background-color: green;
     }
     </style>
