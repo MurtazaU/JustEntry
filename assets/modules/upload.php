@@ -16,7 +16,6 @@ include('./database-connection.php');
 
                     if(isset($_REQUEST['user_upload_file'])){
                     $uploadfile = $_FILES["upload_file"]['name'];
-                    $_SESSION['file'] = $uploadfile;
                     $uploadtmpname = $_FILES["upload_file"]['tmp_name'];
                     $uploadtype = $_FILES["upload_file"]['type'];
                     if($uploadtype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
