@@ -3,7 +3,7 @@ include('../assets/admintemplate/header.php');
 include('../assets/modules/database-connection.php');
 
 // Groups
-$groupssql = $con->prepare('select * from groups');
+$groupssql = $con->prepare('select * from groups limit 1,1000');
 $groupssql -> execute();
 $groupscount = $groupssql->rowCount();
 $record = $groupssql -> fetchAll(PDO::FETCH_OBJ);
@@ -54,7 +54,7 @@ $newgroupscount = $newgroupssql->rowCount();
                     Copyright &copy;<script>
                     document.write(new Date().getFullYear());
                     </script> All rights reserved. Powdered by justEntry | Developed by <a class="text-white" href="https://maszamtech.com" target="_blank">Maszam Technologies</a> <a href="">Template
-                    by <a href="https://colorlib.ccom" target="_blank">Colorlib.com</a></a>
+                    by <a href="https://colorlib.com" target="_blank">Colorlib.com</a></a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>
@@ -142,8 +142,8 @@ $newgroupscount = $newgroupssql->rowCount();
     <tr>
       <th>Group Id</th>
       <th>Group Name</th>
-      <th>Group Grade</th>
-      <th>Group Desc</th>
+      <th>Group Creation Date</th>
+      <th>Group Members</th>
     </tr>
   </thead>
   <tbody>
@@ -158,12 +158,12 @@ $newgroupscount = $newgroupssql->rowCount();
         <p class="fw-normal mb-1 "><?php echo $row->groupname; ?></p>
       </td>
       <td>
-        <p class="fw-normal mb-1 "><?php echo $row->groupgrade; ?></p>
+        <p class="fw-normal mb-1"><?php echo $row->groupregistrationdate ?></p>
       </td>
       <td>
-        <p class="fw-normal mb-1 "><?php echo $row->groupdesc; ?></p>
+        <p class="fw-normal mb-1"> <a href="./groupmembers.php?group=<?php echo $row->groupname?>&id=<?php echo $row->groupid?>"><button type="text" class="btn btn-success px-5">Members</button> </a> </p>
       </td>
-     
+
     </tr>
    <?php } ?>
    

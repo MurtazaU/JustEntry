@@ -129,7 +129,7 @@ include('./database-connection.php');
                     Copyright &copy;<script>
                     document.write(new Date().getFullYear());
                     </script> All rights reserved. Powdered by justEntry | Developed by <a class="text-white" href="https://maszamtech.com" target="_blank">Maszam Technologies</a> <a href="">Template
-                    by <a href="https://colorlib.ccom" target="_blank">Colorlib.com</a></a>
+                    by <a href="https://colorlib.com" target="_blank">Colorlib.com</a></a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>

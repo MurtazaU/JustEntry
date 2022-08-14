@@ -87,7 +87,8 @@ include('./assets/modules/database-connection.php');
                                     <div class="card-footer">
                                         <div class="media">
                                             <?php
-                                            $group = $con -> prepare("select groupnameid from users");
+                                            $group = $con -> prepare("select groupnameid from users where useremail = ?");
+                                            $group -> bindParam(1, $_SESSION['user_email']);
                                             $group -> execute();
                                             $group_name_id = $group -> fetchAll(PDO::FETCH_OBJ);
                                             $query = $con -> prepare("select * from users where groupnameid = ? && useremail = ?");
