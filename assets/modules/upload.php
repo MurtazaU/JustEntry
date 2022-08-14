@@ -16,6 +16,7 @@ include('./database-connection.php');
 
                     if(isset($_REQUEST['user_upload_file'])){
                     $uploadfile = $_FILES["upload_file"]['name'];
+                    $_SESSION['file'] = $uploadfile;
                     $uploadtmpname = $_FILES["upload_file"]['tmp_name'];
                     $uploadtype = $_FILES["upload_file"]['type'];
                     if($uploadtype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
@@ -45,7 +46,8 @@ include('./database-connection.php');
     <title>Just Entry</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -184,10 +186,13 @@ include('./database-connection.php');
             ?>
             <div class="card upload-card col-md-3 col-lg-3 col-sm-12 mx-2 my-2 text-center" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">File Name: <?php echo $row->uploadfile ?></h5>
-                    <h6 class="card-subtitle mb-2 text-muted">File Type: Docx</h6>
-                            <a href="./upload/delete-file.php?fileId=<?php echo $row->uploadid ?>&group=<?php echo $group_name;?>&groupid=<?php echo $groupid ?>">
-                                <input type="submit" class="btn btn-danger delete-btn form-control text-white mb-2  mt-3" name="delete_file" value="Delete File"/>
+                    <h5 class="card-title">File Name: <br/> <?php echo $row->uploadfile ?></h5>
+                            <a href="./upload/download-file.php?fileId=<?php echo $row->uploadid ?>&group=<?php echo $row->uploadgroup ?>&filename=<?php echo $row->uploadfile;?>&groupid=<?php echo $groupid ?>">
+                                <input type="submit" class="btn btn-primary px-3 text-white  mt-2" name="download_file" value="Download"/>
+                            </a>
+                            <a href="./upload/delete-file.php?fileId=<?php echo $row->uploadid ?>&group=<?php echo $row->uploadgroup ?>&filename=<?php echo $row->uploadfile;?>&groupid=<?php echo $groupid ?>">
+                                <input type="submit" class="btn btn-danger px-3 text-white  mt-2" name="delete_file" value="Delete File"/>
+                                <i class="fa fa-view"></i>
                             </a>
                     <br/>
                 </div>
