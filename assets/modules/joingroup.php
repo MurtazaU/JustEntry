@@ -8,7 +8,6 @@ $sql->bindParam(2, $_SESSION['user_email']);
 $sql->execute();
 
 
-$date = date("Y-m-d");
 $time = date("Y-m-d:h:i:s");
 $email = $_SESSION['user_email'];
 

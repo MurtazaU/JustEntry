@@ -4,12 +4,12 @@ include('../assets/modules/database-connection.php');
 
 if(isset($_SESSION['delete'])){
 // Deleting user
-$user = $con -> prepare('delete from users where useremail = ?');
+$user = $con -> prepare('delete * from users where useremail = ?');
 $user->bindParam(1, $_SESSION['user_email']);
 $user->execute();
 
 // Deleting Uploads
-$upload = $con -> prepare('delete from uploads where uploaduser = ?');
+$upload = $con -> prepare('delete * from uploads where uploaduser = ?');
 $upload -> bindParam(1, $_SESSION['user_email']);
 $upload -> execute();
 

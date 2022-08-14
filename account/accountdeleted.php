@@ -19,13 +19,10 @@ body{
 
 <?php 
 
-if(isset($_POST)){
-    header('location: ../registration/register.php');
-}
 echo '<form method="POST">';
 echo '<div class="text-center">';
     echo '<p class="bg-success text-center text-white p-2 rounded-3">Your Account Has Been Deleted!</p>';
-    echo '<button class="btn btn-primary text-center px-5" name="register">Register</button>';
+    echo '<button class="btn btn-primary text-center px-5" name="register">Please Register To Continue</button>';
 echo '</div>';
 echo '</form>'
 

@@ -28,7 +28,7 @@ include('./database-connection.php');
                         $sql-> execute();
                         header("Refresh:0");
                     } else{
-                        echo '<p class="bg-success sticky-top text-center text-white p-2 mb-0 rounded-3">Please Upload Only .docx Files!</p>'; 
+                        echo '<p class="bg-danger text-center text-white p-2 mb-0 sticky-top">Please Upload Only .docx FIles!</p>';
                     }
                     }
 

@@ -30,7 +30,7 @@ if(isset($_POST['user_submit'])){
               }
     
     }else{
-        echo "<script>alert('No Email Found')</script>";
+        echo '<p class="bg-danger text-center text-white p-2 mb-0 sticky-top">No Email Found!</p>';
     }
 
 }
