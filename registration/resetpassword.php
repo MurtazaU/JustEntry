@@ -9,6 +9,7 @@ if(isset($_POST['user_submit'])){
     $user_pass = $_REQUEST['user_new_pass'];
     $user_confirm = $_REQUEST['user_confirm_pass'];
     $user_email = $_GET['email'];
+    $datetime = date("Y-m-d:h:i:s");
 
 
     if($user_pass != $user_confirm){
@@ -19,9 +20,10 @@ if(isset($_POST['user_submit'])){
         $query -> execute();
 
         if($query){
-            $sql = $con->prepare('update users set userpassword = ? where useremail = ?');
+            $sql = $con->prepare('update users set userpassword = ?, forgotpassword = ? where useremail = ?');
             $sql->bindParam(1, $user_pass);
-            $sql->bindParam(2, $user_email);
+            $sql->bindParam(2, $dateTime);
+            $sql->bindParam(3, $user_email);
             $sql->execute();
             echo '<p class="bg-success text-center text-white p-2 sticky-top">Your Password has been Updated!. Kinldy Log Back In To Continue </p>';
             session_unset();
