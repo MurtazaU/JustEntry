@@ -143,8 +143,8 @@ if(isset($_POST['delete_button'])){
         <form method="POST">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <img src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">
+            <!-- <img src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;"> -->
             <h5 class="my-3 text-capitalize"><?php echo $row->username ?></h5>
             <p class="text-muted mb-1"><?php echo $row->useremail ?></p>
             <p class="text-muted mb-4">User Id:<?php echo $row->userid ?></p>
