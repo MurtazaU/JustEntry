@@ -113,7 +113,7 @@ include('./database-connection.php');
                 if(isset($_SESSION['admin_email'])){
                     ?>
                 <li>
-                    <a href="./admin/adminpanel.php" class="mt-3"><span class="fa fa-solid fa-unlock mr-3"></span>Admin Panel</a>
+                    <a href="../../admin/adminpanel.php" class="mt-3"><span class="fa fa-solid fa-unlock mr-3"></span>Admin Panel</a>
                 </li>
                     <?php
                 }

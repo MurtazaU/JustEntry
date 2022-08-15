@@ -78,7 +78,7 @@ include('./assets/modules/database-connection.php');
                     <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
                         <form method="GET">
                             <div class="card text-white card-has-bg "
-                                style="background-image:url('<?php echo $row->groupbgimg; ?>');">
+                                style="background-image:url('./upload-files/groupbg/<?php echo $row->groupbgimg; ?>');">
                                 <div class="card-img-overlay d-flex flex-column">
                                     <div class="card-body">
                                         <h4 class="card-title mt-0 "><a

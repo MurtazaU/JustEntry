@@ -14,6 +14,11 @@ $newusersql = $con->prepare('select * from users where registrationdate = ?');
 $newusersql-> bindParam(1, $date);
 $newusersql -> execute();
 $newusercount = $newusersql->rowCount();
+
+if(isset($_POST['user_delete'])){
+
+}
+
 ?>
 
 <div class="wrapper d-flex align-items-stretch vh-100">
@@ -37,7 +42,7 @@ $newusercount = $newusersql->rowCount();
                     <a href="./groups.php" class="mt-3"><span class="fa fa-solid fa-people-group mr-3"></span>Groups</a>
                 </li>
                 <li>
-                    <a href="./users.php" class="mt-3"><span class="fa fa-solid fa-circle-plus mr-3"></span>New Group</a>
+                    <a href="./newgroup.php" class="mt-3"><span class="fa fa-solid fa-circle-plus mr-3"></span>New Group</a>
                 </li>
                 <li>
                     <a href="../index.php" class="mt-3"><span class="fa fa-solid fa-user-lock mr-3"></span>User Dashboard</a>
@@ -54,7 +59,7 @@ $newusercount = $newusersql->rowCount();
                     Copyright &copy;<script>
                     document.write(new Date().getFullYear());
                     </script> All rights reserved. Powdered by justEntry | Developed by <a class="text-white" href="https://maszamtech.com" target="_blank">Maszam Technologies</a> <a href="">Template
-                    by <a href="https://colorlib.ccom" target="_blank">Colorlib.com</a></a>
+                    by <a href="https://colorlib.com" target="_blank">Colorlib.com</a></a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>
@@ -141,11 +146,16 @@ $newusercount = $newusersql->rowCount();
 <table class="table align-middle mb-0 bg-white">
   <thead class="bg-light">
     <tr>
-      <th>User Id</th>
-      <th>User Name</th>
-      <th>User Email</th>
-      <th>User Password</th>
-      <th>User Registration Date</th>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Registration Date</th>
+      <th>Edit Account Date</th>
+      <th>Status</th>
+      <th>Group</th>
+      <th>Group Joining Date</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -168,7 +178,36 @@ $newusercount = $newusersql->rowCount();
       <td>
         <p class=" mb-1 "><?php echo $row->registrationdate; ?></p>
       </td>
-     
+      <td>
+        <p class=" mb-1 "><?php echo $row->editaccount; ?></p>
+      </td>
+      <td>
+        <p class=" mb-1 "><?php echo $row->status; ?></p>
+      </td>
+      <td>
+        <?php 
+        // Groups Joined Data
+        $groupsql = $con -> prepare('select groupname from groups where groupid = ?');
+        $groupsql -> bindParam(1, $row->groupnameid);
+        $groupsql->execute();
+        $grouprecord = $groupsql->fetchAll(PDO::FETCH_OBJ);
+        foreach($grouprecord as $group){
+          ?>
+            <p class=" mb-1 "><?php echo $group->groupname; ?></p>
+          <?php
+        }
+        ?>
+      </td>
+      <td>
+            <p class=" mb-1 "><?php echo $row->groupdatetime; ?></p>
+      </td>
+      <td>
+        <a href="./deleteuser.php?email=<?php echo $row->useremail ?>">
+          <button class="btn btn-warning" type="submit" name="delete_user">
+            <p class=" mb-1 text-center "><i class="fa-solid fa-ban text-danger font-lg"></i></p>
+          </button>
+        </a>
+      </td>
     </tr>
         <?php
     }

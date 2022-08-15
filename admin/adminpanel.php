@@ -1,7 +1,9 @@
 <?php 
 include('../assets/admintemplate/header.php');
 include('../assets/modules/database-connection.php');
-
+if(!isset($_SESSION['admin_email'])){
+  header('location: ./login/adminlogin.php');
+}
 // Users
 $usersql = $con->prepare('select * from users ');
 $usersql -> execute();
@@ -49,7 +51,7 @@ $groupsrecord = $groupstablesql -> fetchAll(PDO::FETCH_OBJ);
                     <a href="./groups.php" class="mt-3"><span class="fa fa-solid fa-people-group mr-3"></span>Groups</a>
                 </li>
                 <li>
-                    <a href="./users.php" class="mt-3"><span class="fa fa-solid fa-circle-plus mr-3"></span>New Group</a>
+                    <a href="./newgroup.php" class="mt-3"><span class="fa fa-solid fa-circle-plus mr-3"></span>New Group</a>
                 </li>
                 <li>
                     <a href="../index.php" class="mt-3"><span class="fa fa-solid fa-user-lock mr-3"></span>User Dashboard</a>

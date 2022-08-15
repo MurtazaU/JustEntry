@@ -41,7 +41,7 @@ if(isset($_POST['editAccount'])){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../assets/CSS/sidebar.css">
     <script src="https://kit.fontawesome.com/e1a5a5ef59.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../assets/CSS/editaccount.css">
+    <link rel="stylesheet" href="../assets/CSS/edit.css">
 
     <style>
     #sidebar {
