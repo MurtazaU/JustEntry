@@ -19,10 +19,15 @@ if(isset($_POST['user_submit'])){
         $query -> execute();
 
         if($query){
+              $datetime = date("Y-m-d:h:i:s");
               $sql = $con->prepare("update users set userpassword = ? where useremail = ?");
               $sql->bindParam(1, $user_pass);
               $sql->bindParam(2, $user_email);
               $sql->execute();
+              $query = $con->prepare("update users set forgotpassword = ? where useremail = ?");
+              $query->bindParam(1, $datetime);
+              $query->bindParam(2, $user_email);
+              $query->execute();
             echo '<p class="bg-success text-center text-white p-2 sticky-top">Your Password has been Updated!. Kinldy Log Back In To Continue </p>';
             session_unset();
             session_destroy();

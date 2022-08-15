@@ -18,13 +18,17 @@ include('./database-connection.php');
                     $uploadfile = $_FILES["upload_file"]['name'];
                     $uploadtmpname = $_FILES["upload_file"]['tmp_name'];
                     $uploadtype = $_FILES["upload_file"]['type'];
+                    $datetime = date("Y-m-d:h:i:s");
+                    $date = date("Y-m-d");
                     if($uploadtype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
                         move_uploaded_file($uploadtmpname, "../../upload-files/$uploadfile");
-                        $sql = $con->prepare('insert into uploads(uploaduser, uploadgroup, uploadfile, uploadfiletype) values (?,?,?,?)');
+                        $sql = $con->prepare('insert into uploads(uploaduser, uploadgroup, uploadfile, uploadfiletype, uploadtime, uploaddate) values (?,?,?,?,?,?)');
                         $sql->bindParam(1,$useremail);
                         $sql->bindParam(2,$group_name);
                         $sql->bindParam(3, $uploadfile);
                         $sql->bindParam(4, $uploadtype);
+                        $sql->bindParam(5, $datetime);
+                        $sql->bindParam(6, $date);
                         $sql-> execute();
                         header("Refresh:0");
                     } else{

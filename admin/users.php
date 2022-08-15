@@ -39,6 +39,9 @@ if(isset($_POST['user_delete'])){
                     <a href="./users.php" class="mt-3"><span class="fa fa-solid fa-user mr-3"></span>Users</a>
                 </li>
                 <li>
+                    <a href="./uploads.php" class="mt-3"><span class="fa-solid fa-upload mr-3"></span>Uploads</a>
+                </li>
+                <li>
                     <a href="./groups.php" class="mt-3"><span class="fa fa-solid fa-people-group mr-3"></span>Groups</a>
                 </li>
                 <li>
