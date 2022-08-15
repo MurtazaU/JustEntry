@@ -29,8 +29,6 @@ if(isset($_POST['user_submit'])){
               $query->bindParam(2, $user_email);
               $query->execute();
             echo '<p class="bg-success text-center text-white p-2 sticky-top">Your Password has been Updated!. Kinldy Log Back In To Continue </p>';
-            session_unset();
-            session_destroy();
             
         } else{
         echo '<p class="bg-warning text-center text-white p-2 mb-0 sticky-top">Please Try Again!</p>';

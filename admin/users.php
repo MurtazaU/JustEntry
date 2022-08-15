@@ -153,9 +153,8 @@ if(isset($_POST['user_delete'])){
       <th>Name</th>
       <th>Email</th>
       <th>Password</th>
+      <th>Password Recovery</th>
       <th>Registration Date</th>
-      <th>Edit Account Date</th>
-      <th>Status</th>
       <th>Group</th>
       <th>Group Joining Date</th>
       <th>Action</th>
@@ -179,14 +178,13 @@ if(isset($_POST['user_delete'])){
         <p class=" mb-1 "><?php echo $row->userpassword; ?></p>
       </td>
       <td>
+        <p class=" mb-1 "><?php echo $row->forgotpassword; ?></p>
+      </td>
+      <td>
         <p class=" mb-1 "><?php echo $row->registrationdate; ?></p>
       </td>
-      <td>
-        <p class=" mb-1 "><?php echo $row->editaccount; ?></p>
-      </td>
-      <td>
-        <p class=" mb-1 "><?php echo $row->status; ?></p>
-      </td>
+
+
       <td>
         <?php 
         // Groups Joined Data
